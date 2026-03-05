@@ -1,0 +1,133 @@
+[gd_scene format=3 uid="uid://cwtoplkexdnnu"]
+
+[ext_resource type="Texture2D" uid="uid://dmu6qmg3ff53g" path="res://assets_basura/ganador.png" id="2_arind"]
+[ext_resource type="Texture2D" uid="uid://gg4jj0yiwkgt" path="res://assets_basura/ojos.png" id="3_o23qx"]
+[ext_resource type="Texture2D" uid="uid://jae0s155ox1i" path="res://assets_basura/boca.png" id="4_mvkgf"]
+[ext_resource type="Texture2D" uid="uid://5wf4jk7240fx" path="res://assets_basura/perdedor.png" id="5_d0tgj"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ngxh8"]
+load_path = "res://.godot/imported/recuadro.png-b6a3419fa0614b77f3413b47aec23cb5.ctex"
+
+[sub_resource type="Animation" id="Animation_swei1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ganador/ganador:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-12, 6)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("perdedor/perdedor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-12, -173.99998)]
+}
+
+[sub_resource type="Animation" id="Animation_pr21c"]
+resource_name = "new_animation"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ganador/ganador:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.22531256, 0.22531256),
+"update": 0,
+"values": [Vector2(-12, 6), Vector2(-12, -129.99998)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("perdedor/perdedor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.22531264, 0.22531264),
+"update": 0,
+"values": [Vector2(-12, -142.99998), Vector2(-12, -1.9999933)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_li32t"]
+_data = {
+&"RESET": SubResource("Animation_swei1"),
+&"new_animation": SubResource("Animation_pr21c")
+}
+
+[node name="Node2D" type="Node2D" unique_id=779380360]
+position = Vector2(12, -6)
+
+[node name="ganador" type="Node2D" parent="." unique_id=85371680]
+position = Vector2(702, 449)
+
+[node name="ganador" type="Sprite2D" parent="ganador" unique_id=1082679180]
+position = Vector2(-12, 6)
+scale = Vector2(0.2, 0.2)
+texture = SubResource("CompressedTexture2D_ngxh8")
+
+[node name="cuerpo" type="Sprite2D" parent="ganador/ganador" unique_id=853696387]
+texture = ExtResource("2_arind")
+
+[node name="ojos" type="Sprite2D" parent="ganador/ganador" unique_id=634093398]
+position = Vector2(0, -350)
+scale = Vector2(0.9999998, 0.9999998)
+texture = ExtResource("3_o23qx")
+
+[node name="Sprite2D3" type="Sprite2D" parent="ganador/ganador" unique_id=97229042]
+position = Vector2(0, -245)
+texture = ExtResource("4_mvkgf")
+
+[node name="perdedor" type="Node2D" parent="." unique_id=723549413]
+position = Vector2(405, 449)
+
+[node name="perdedor" type="Sprite2D" parent="perdedor" unique_id=170174790]
+position = Vector2(-12, -173.99998)
+scale = Vector2(0.2, 0.2)
+texture = SubResource("CompressedTexture2D_ngxh8")
+
+[node name="cuerpo" type="Sprite2D" parent="perdedor/perdedor" unique_id=2038462297]
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("5_d0tgj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=877579197]
+libraries/ = SubResource("AnimationLibrary_li32t")
+
+[node name="Label" type="Label" parent="." unique_id=569449020]
+offset_left = 855.0
+offset_top = 396.0
+offset_right = 981.0
+offset_bottom = 438.0
+theme_override_font_sizes/font_size = 30
+text = "Ganador"
+
+[node name="Label3" type="Label" parent="." unique_id=1282255796]
+offset_left = 436.0
+offset_top = 30.0
+offset_right = 736.0
+offset_bottom = 117.0
+theme_override_font_sizes/font_size = 30
+text = "bocetos culero de
+ideas para la victoria"
+
+[node name="Label2" type="Label" parent="." unique_id=595848583]
+offset_left = 105.0
+offset_top = 356.0
+offset_right = 240.0
+offset_bottom = 398.0
+theme_override_font_sizes/font_size = 30
+text = "Perdedor"

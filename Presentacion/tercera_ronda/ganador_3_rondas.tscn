@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://c1kslmdh1h4vl"]
+
+[ext_resource type="Script" uid="uid://c71iydhh7oaoe" path="res://Presentacion/tercera_ronda/Cartas_ani.gd" id="1_vqb7c"]
+[ext_resource type="Texture2D" uid="uid://bffhgwcd5ybur" path="res://assets_basura/recuadro.png" id="2_shjso"]
+
+[node name="Ganador_3_rondas" type="Control" unique_id=1992759892 node_paths=PackedStringArray("jugador_texture", "npc_texture")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vqb7c")
+jugador_texture = NodePath("MarginContainer/HBoxContainer/jugador/jugador_carta")
+npc_texture = NodePath("MarginContainer/HBoxContainer/npc/npc_carta")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1536060410]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -576.0
+offset_right = 576.0
+offset_bottom = 648.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_top = 170
+theme_override_constants/margin_right = 300
+theme_override_constants/margin_bottom = 100
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1353289261]
+layout_mode = 2
+
+[node name="jugador" type="Control" parent="MarginContainer/HBoxContainer" unique_id=939813896]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="jugador_carta" type="TextureRect" parent="MarginContainer/HBoxContainer/jugador" unique_id=965750059]
+layout_mode = 0
+offset_right = 188.0
+offset_bottom = 296.0
+texture = ExtResource("2_shjso")
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer" unique_id=1656089065]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Control" unique_id=206871670]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 156.0
+offset_right = 20.0
+offset_bottom = 179.0
+grow_horizontal = 2
+text = "VS"
+
+[node name="npc" type="Control" parent="MarginContainer/HBoxContainer" unique_id=235622552]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="npc_carta" type="TextureRect" parent="MarginContainer/HBoxContainer/npc" unique_id=464553046]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -188.0
+offset_bottom = 296.0
+grow_horizontal = 0
+texture = ExtResource("2_shjso")
+
+[node name="animacion terminó" type="Timer" parent="." unique_id=308688819]
+
+[connection signal="timeout" from="animacion terminó" to="." method="_cuando_tiempo_termine"]

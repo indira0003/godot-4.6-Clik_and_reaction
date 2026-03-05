@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cg0uu8wqkpi5j"]
+
+[ext_resource type="Script" uid="uid://buroif6682lw4" path="res://Presentacion/animacion_system/systemAnimation.gd" id="1_fgmhp"]
+[ext_resource type="PackedScene" uid="uid://c1kslmdh1h4vl" path="res://Presentacion/tercera_ronda/ganador_3_rondas.tscn" id="2_fgmhp"]
+
+[node name="SystemAnimation" type="Control" unique_id=566378253]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fgmhp")
+animacion_cartas = ExtResource("2_fgmhp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1926102143]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1060857932]
+visible = false
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_cuando_animation_player_termine"]

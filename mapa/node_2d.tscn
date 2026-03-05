@@ -1,0 +1,201 @@
+[gd_scene format=3 uid="uid://cyebltdkn8klh"]
+
+[ext_resource type="Script" uid="uid://bskdascx2pxal" path="res://debug/input/input.gd" id="1_0mhu2"]
+[ext_resource type="Script" uid="uid://dxowf4070tkns" path="res://Game/GAME.gd" id="1_eixu5"]
+[ext_resource type="Script" uid="uid://b5nq6happa7c2" path="res://ui/ui.gd" id="2_2ohbi"]
+[ext_resource type="Script" uid="uid://blwqq45wne1y3" path="res://debug/rondas/ganador_actual.gd" id="3_4ij7v"]
+[ext_resource type="Script" uid="uid://r2msn1fyby2y" path="res://debug/rondas/ronda_jugador.gd" id="3_4vhom"]
+[ext_resource type="PackedScene" uid="uid://cg0uu8wqkpi5j" path="res://Presentacion/animacion_system/SystemAnimacion.tscn" id="3_huk42"]
+[ext_resource type="Resource" uid="uid://cejydsd6ky1hm" path="res://Recursos/reglas_del_juego/reglas_juego.tres" id="3_nauax"]
+[ext_resource type="Script" uid="uid://ba8drfqjgl3s0" path="res://debug/tiempos/tiempo_jugador.gd" id="3_prd4g"]
+[ext_resource type="Script" uid="uid://bg7un48ivs8j4" path="res://debug/tiempos/tiempo_dificultad.gd" id="4_3pbrt"]
+[ext_resource type="Script" uid="uid://bk578lfimm8cc" path="res://ui/Escena_ui/escena.gd" id="4_56dx4"]
+[ext_resource type="Script" uid="uid://c5bx5pqpwsu04" path="res://debug/tiempos/tiempos_npc.gd" id="4_jeh85"]
+[ext_resource type="Script" uid="uid://bsew0pvh55jh0" path="res://tiempo_sistema/system_timers.gd" id="4_puho6"]
+[ext_resource type="Resource" uid="uid://euauve6dix8x" path="res://Recursos/GameSession/Game_session.tres" id="4_vvpgq"]
+[ext_resource type="Script" uid="uid://becv0rqcyl8os" path="res://debug/tiempos/tiempo_ya.gd" id="5_jeh85"]
+[ext_resource type="Script" uid="uid://b66jw6p1a2o33" path="res://debug/rondas/ronda_npc.gd" id="5_rktyg"]
+[ext_resource type="Script" uid="uid://b3qv7kbccefk4" path="res://debug/estado_actual.gd" id="6_6bt8f"]
+[ext_resource type="Script" uid="uid://dwdwrxywfqcav" path="res://debug/rondas/dificultad.gd" id="6_rktyg"]
+
+[node name="Node2D" type="Node2D" unique_id=1358494555]
+
+[node name="input" type="Node2D" parent="." unique_id=399316623]
+script = ExtResource("1_0mhu2")
+
+[node name="Game" type="Node2D" parent="." unique_id=1920949034 node_paths=PackedStringArray("sistema_animaciones", "sistema_tiempo")]
+editor_description = "si lo lees eres joto XD"
+script = ExtResource("1_eixu5")
+estado_actual = null
+sistema_animaciones = NodePath("../CanvasLayer/Ui/SystemAnimation")
+sistema_tiempo = NodePath("SystemTimers")
+reglas = ExtResource("3_nauax")
+session_game = ExtResource("4_vvpgq")
+
+[node name="SystemTimers" type="Node2D" parent="Game" unique_id=2119069431]
+script = ExtResource("4_puho6")
+
+[node name="contador_YA" type="Timer" parent="Game/SystemTimers" unique_id=320998072]
+wait_time = 5.0
+
+[node name="Timer_jugador" type="Timer" parent="Game/SystemTimers" unique_id=459325839]
+wait_time = 5.0
+
+[node name="Timer_npc" type="Timer" parent="Game/SystemTimers" unique_id=2028878302]
+wait_time = 0.5
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=563458146]
+
+[node name="Ui" type="Control" parent="CanvasLayer" unique_id=301644376 node_paths=PackedStringArray("ya")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_2ohbi")
+ya = NodePath("Escena/labeles/YA")
+
+[node name="Escena" type="Control" parent="CanvasLayer/Ui" unique_id=1252072372]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_56dx4")
+
+[node name="Debug" type="Control" parent="CanvasLayer/Ui/Escena" unique_id=1356572762]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="tiempo_dificultad" type="Label" parent="CanvasLayer/Ui/Escena/Debug" unique_id=1827275080 node_paths=PackedStringArray("game")]
+layout_mode = 0
+offset_left = 346.0
+offset_top = 444.0
+offset_right = 386.0
+offset_bottom = 467.0
+script = ExtResource("4_3pbrt")
+game = NodePath("../../../../../Game")
+
+[node name="ganador_actual" type="Label" parent="CanvasLayer/Ui/Escena/Debug" unique_id=1252066876 node_paths=PackedStringArray("game")]
+layout_mode = 0
+offset_left = 538.0
+offset_top = 201.0
+offset_right = 578.0
+offset_bottom = 224.0
+text = "ganador_actual"
+script = ExtResource("3_4ij7v")
+game = NodePath("../../../../../Game")
+
+[node name="Ronda_jugador" type="Label" parent="CanvasLayer/Ui/Escena/Debug" unique_id=1840181758 node_paths=PackedStringArray("game")]
+layout_mode = 0
+offset_left = 373.0
+offset_top = 261.0
+offset_right = 413.0
+offset_bottom = 284.0
+text = "ronda_jugador
+"
+script = ExtResource("3_4vhom")
+game = NodePath("../../../../../Game")
+
+[node name="Ronda_npc" type="Label" parent="CanvasLayer/Ui/Escena/Debug" unique_id=1084646856 node_paths=PackedStringArray("game")]
+layout_mode = 0
+offset_left = 678.0
+offset_top = 261.0
+offset_right = 791.0
+offset_bottom = 310.0
+text = "ronda_npc
+"
+script = ExtResource("5_rktyg")
+game = NodePath("../../../../../Game")
+
+[node name="dificultad" type="Label" parent="CanvasLayer/Ui/Escena/Debug" unique_id=1524420065 node_paths=PackedStringArray("game")]
+layout_mode = 0
+offset_left = 541.0
+offset_top = 366.0
+offset_right = 632.0
+offset_bottom = 389.0
+text = "dificultad: 0"
+script = ExtResource("6_rktyg")
+game = NodePath("../../../../../Game")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Ui/Escena/Debug" unique_id=586216167]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Tiempo_jugador" type="Label" parent="CanvasLayer/Ui/Escena/Debug/VBoxContainer" unique_id=893032803 node_paths=PackedStringArray("game")]
+layout_mode = 2
+text = "tiempo jugador: 0"
+script = ExtResource("3_prd4g")
+game = NodePath("../../../../../../Game")
+
+[node name="Tiempos_npc" type="Label" parent="CanvasLayer/Ui/Escena/Debug/VBoxContainer" unique_id=1973364977 node_paths=PackedStringArray("game")]
+layout_mode = 2
+text = "timer_npc: 0"
+script = ExtResource("4_jeh85")
+game = NodePath("../../../../../../Game")
+
+[node name="Tiempos_npc2" type="Label" parent="CanvasLayer/Ui/Escena/Debug/VBoxContainer" unique_id=1262507957 node_paths=PackedStringArray("game")]
+layout_mode = 2
+text = "timer_ya: 0"
+script = ExtResource("5_jeh85")
+game = NodePath("../../../../../../Game")
+
+[node name="Tiempos_npc3" type="Label" parent="CanvasLayer/Ui/Escena/Debug/VBoxContainer" unique_id=461379377 node_paths=PackedStringArray("game")]
+layout_mode = 2
+text = "estado_juego: 0"
+script = ExtResource("6_6bt8f")
+game = NodePath("../../../../../../Game")
+
+[node name="labeles" type="Control" parent="CanvasLayer/Ui/Escena" unique_id=1996973447]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="YA" type="Label" parent="CanvasLayer/Ui/Escena/labeles" unique_id=1285945323]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 35
+text = "¡YA!"
+
+[node name="Button" type="Button" parent="CanvasLayer/Ui/Escena" unique_id=456991586]
+layout_mode = 0
+offset_left = 425.0
+offset_top = 412.0
+offset_right = 731.64514
+offset_bottom = 510.0
+text = "PRESIONAR"
+
+[node name="SystemAnimation" parent="CanvasLayer/Ui" unique_id=1240086561 instance=ExtResource("3_huk42")]
+layout_mode = 1
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[connection signal="borrar_ui" from="Game" to="CanvasLayer/Ui/Escena" method="eliminarse"]
+[connection signal="estado_cambiado" from="Game" to="CanvasLayer/Ui" method="_cuando_cambie_estado"]
+[connection signal="timeout" from="Game/SystemTimers/contador_YA" to="Game/SystemTimers" method="cuando_contador_YA_termine"]
+[connection signal="timeout" from="Game/SystemTimers/Timer_npc" to="Game/SystemTimers" method="cuando_contador_npc_termine"]
+[connection signal="pressed" from="CanvasLayer/Ui/Escena/Button" to="Game" method="si_jugador_pulso_boton"]
