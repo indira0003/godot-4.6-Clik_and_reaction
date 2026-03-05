@@ -26,7 +26,6 @@ script = ExtResource("1_0mhu2")
 [node name="Game" type="Node2D" parent="." unique_id=1920949034 node_paths=PackedStringArray("sistema_animaciones", "sistema_tiempo")]
 editor_description = "si lo lees eres joto XD"
 script = ExtResource("1_eixu5")
-estado_actual = null
 sistema_animaciones = NodePath("../CanvasLayer/Ui/SystemAnimation")
 sistema_tiempo = NodePath("SystemTimers")
 reglas = ExtResource("3_nauax")

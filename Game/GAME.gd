@@ -60,6 +60,7 @@ func cambiar_estado(nuevo_estado):
 				print("hay una animacion de CARTAS")
 				#poner animacion de CARTAS
 				pass
+				#he
 				
 			elif session_game.ganador_ronda:
 				await sistema_animaciones.play_animacion(session_game.ganador_ronda, sistema_animaciones.animacion_cartas)
