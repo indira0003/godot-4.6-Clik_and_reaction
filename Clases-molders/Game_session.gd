@@ -52,9 +52,6 @@ func set_dificult(dificultad: GameManager.Dificultad):
 		return
 	dificultad_actual = dificultad
 
-
-	
-	
 func limpiar_rondas():
 	ronda_jugador_score = 0
 	ronda_npc_score = 0
