@@ -43,8 +43,6 @@ func _cuando_cambie_estado(estado: Variant) -> void:
 
 #region UI
 
-# ---> Esto podría ir en UI <---
-
 func convertir_enum_en_string(ganador) -> String:
 	match ganador:
 		GameManager.Ganador.jugador:
@@ -66,5 +64,3 @@ func convertidor_dificultad_string(dificultad_ahora) -> String:
 
 
 #endregion
-
-		

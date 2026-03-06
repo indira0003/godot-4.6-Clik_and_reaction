@@ -54,17 +54,8 @@ func set_dificult(dificultad: GameManager.Dificultad):
 	
 	if ganador_definitivo == GameManager.Ganador.ninguno:
 		return
-	
-	var jugador = GameManager.Ganador.jugador
-	var npc = GameManager.Ganador.npc
-	
-	match ganador_definitivo:
-		jugador: #si jugador gana: subir dificultad
-			dificultad_actual = dificultad
-			print("JUGADOR GANA!")
-		npc: #si npc gana: bajar dificultad
-			dificultad_actual = dificultad
-			print("NPC GANA!")
+	dificultad_actual = dificultad
+
 
 	
 	

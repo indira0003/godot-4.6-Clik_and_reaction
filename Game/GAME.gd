@@ -137,9 +137,7 @@ func establecer_tiempo_NPC():
 func _cuando_tiempo_YA_termine() -> void:
 	ir_a_estado(GameManager.Estado_juego.YA)
 	
-
-
-
+	
 func connectar_señales():
 	sistema_tiempo.tiempo_NPC_termino.connect(_cuando_tiempo_npc_termine)
 	sistema_tiempo.tiempo_YA_termino.connect(_cuando_tiempo_YA_termine)
@@ -174,6 +172,5 @@ func subir_lvl():
 	
 func play_anim(ganador: GameManager.Ganador, animacion: PackedScene):
 	await sistema_animaciones.play_animacion(ganador, animacion)
-	
 	
 	
