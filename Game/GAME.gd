@@ -143,8 +143,8 @@ func establecer_tiempo_NPC():
 
 										#endregion
 	var segundos: float =  reglas.tiempo_diferente_por_dificultad(session_game.dificultad_actual)
-	return segundos
 	sistema_tiempo.esperar_tiempo_NPC(segundos)
+	return segundos
 
 func _cuando_tiempo_YA_termine() -> void:
 	ir_a_estado(GameManager.Estado_juego.YA)
@@ -202,13 +202,13 @@ func hacer_ganar_al_npc_si_pierdes():
 		)
 
 func subir_lvl():
-	session_game.actualizar_dificultad(reglas.subir_dificultad(
+	session_game.set_dificult(reglas.subir_dificultad(
 		session_game.dificultad_actual, 
 		session_game.ganador_definitivo
 		))
 	
 func play_anim(ganador: GameManager.Ganador, animacion: PackedScene):
-	sistema_animaciones.play_animacion(ganador, animacion)
+	await sistema_animaciones.play_animacion(ganador, animacion)
 	
 	
 	

@@ -3,9 +3,8 @@ extends Node
 
 "
 El juego/proyecto:
-	Funcion ''actualizar_dificultad'': 
-		es quien aumenta la dificultad
-		mueve el juego
+Reglas_juego calcula calcula/sube los niveles
+Game Session guarda la dificultad actual
 
 
 Bugs:

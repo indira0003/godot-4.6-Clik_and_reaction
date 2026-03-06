@@ -38,7 +38,14 @@ func sumar_quien_gana_ronda():
 		ganador_ronda = GameManager.Ganador.npc
 		aumentar_score_npc()
 
-func actualizar_dificultad(dificultad):
+func set_dificult(dificultad):
+					#region Nota
+
+#Solo setea la dificultad
+
+
+				#endregion
+	
 	if ganador_definitivo == GameManager.Ganador.ninguno:
 		return
 	
@@ -83,7 +90,7 @@ func marcar_inicio_reaccion_jugador():
 #Guarda el tiempo actual en milisegundos
 #para empezar a contar el tiempo del jugador en el inicio
 
-									#endregion
+				#endregion
 	inicio_miliSegundos_ya = Time.get_ticks_msec()
 	
 func calcular_reaccion_jugador():
