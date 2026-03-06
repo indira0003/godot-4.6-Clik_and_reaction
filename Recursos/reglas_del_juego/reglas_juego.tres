@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="reglas_del_juego" format=3 uid="uid://cejydsd6ky1hm"]
 
-[ext_resource type="Script" uid="uid://cf2lv5c4humad" path="res://moldes/Reglas_juego.gd" id="1_b80au"]
+[ext_resource type="Script" uid="uid://cf2lv5c4humad" path="res://Clases-molders/Reglas_juego.gd" id="1_b80au"]
 
 [resource]
 script = ExtResource("1_b80au")

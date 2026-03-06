@@ -85,6 +85,7 @@ func cambiar_estado(nuevo_estado):
 			session_game.actualizar_dificultad(reglas.siguiente_dificultad(session_game.dificultad_actual, session_game.ganador_definitivo))
 			
 			print(session_game.dificultad_actual)
+			session_game.limpiar_datos()
 			session_game.limpiar_rondas()
 			
 			#borrar_ui.emit()

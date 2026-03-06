@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Game_Session" format=3 uid="uid://euauve6dix8x"]
 
-[ext_resource type="Script" uid="uid://c8exb3phipe1" path="res://moldes/Game_session.gd" id="1_ik53n"]
+[ext_resource type="Script" uid="uid://c8exb3phipe1" path="res://Clases-molders/Game_session.gd" id="1_ik53n"]
 
 [resource]
 script = ExtResource("1_ik53n")
