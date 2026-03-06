@@ -23,10 +23,11 @@
 [node name="input" type="Node2D" parent="." unique_id=399316623]
 script = ExtResource("1_gug3j")
 
-[node name="Game" type="Node2D" parent="." unique_id=1920949034 node_paths=PackedStringArray("sistema_animaciones", "sistema_tiempo")]
+[node name="Game" type="Node2D" parent="." unique_id=1920949034 node_paths=PackedStringArray("ui", "sistema_animaciones", "sistema_tiempo")]
 editor_description = "a partir de 3 rondas, ya no se muestra las animaciones y además cada ronda se limpia
 las rondas"
 script = ExtResource("2_ejj3j")
+ui = NodePath("../CanvasLayer/Ui")
 sistema_animaciones = NodePath("../CanvasLayer/Ui/SystemAnimation")
 sistema_tiempo = NodePath("SystemTimers")
 reglas = ExtResource("3_px3ju")

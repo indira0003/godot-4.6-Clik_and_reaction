@@ -3,10 +3,8 @@ class_name GAME
 
 #region VARIABLES
 #-------------------------------------------------------------------------------------------
-#							Estado Actual
-
-
 #							Recursos/objetos/nodos
+@export var ui: UI
 @export var sistema_animaciones: System_Animation
 @export var sistema_tiempo: System_timers
 @export var reglas: reglas_del_juego
@@ -27,8 +25,7 @@ func _ready() -> void:
 	
 	
 func cambiar_estado(nuevo_estado):
-	
-	session_game.estado_actual = nuevo_estado
+	session_game.estado_actual = nuevo_estado #actualizar estado
 	estado_cambiado.emit(session_game.estado_actual) #Ui sabe el estado del jugego y actualiza
 	tiempo_actual = reglas.tiempo_diferente_por_dificultad(session_game.dificultad_actual) #BORRAR LUEGO
 	
@@ -46,27 +43,22 @@ func cambiar_estado(nuevo_estado):
 			session_game.marcar_inicio_reaccion_jugador()
 			sistema_tiempo.iniciar_timer_npc()
 			
-
+			
 		GameManager.Estado_juego.RESULTADO:
 			sistema_tiempo.parar_todos_los_timers()
 			session_game.sumar_quien_gana_ronda()
 			session_game.decidir_ganador_definitivo(reglas.rondas_para_Win()) #opcional si ganas
-			
 			ir_a_estado(GameManager.Estado_juego.ANIMACION)
-				
+			
+			
 		GameManager.Estado_juego.ANIMACION:
 			if session_game.ganador_definitivo != GameManager.Ganador.ninguno:
 				print("hay una animacion de CARTAS")
 				#poner animacion de CARTAS
-				
-				
-				
 			elif session_game.ganador_ronda:
 				await play_anim(
 					session_game.ganador_ronda, 
-					sistema_animaciones.animacion_cartas
-					)
-			
+					sistema_animaciones.animacion_cartas)
 			ir_a_estado(GameManager.Estado_juego.PAUSA)
 			
 			
@@ -74,25 +66,23 @@ func cambiar_estado(nuevo_estado):
 			print("estado: pausa...")
 			sistema_tiempo.parar_todos_los_timers()
 			await sistema_tiempo.hacer_pausa(reglas.pausa_segundos)
-			
 			if session_game.ganador_definitivo != GameManager.Ganador.ninguno: #si hay un ganador del juego
 				ir_a_estado(GameManager.Estado_juego.FINAL)
 				return
-				
 			session_game.limpiar_datos()
 			ir_a_estado(GameManager.Estado_juego.ESPERANDO)
+			
 			
 		GameManager.Estado_juego.FINAL:
 			print("PANTALLA FINAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL")
 			subir_lvl()
 			session_game.limpiar_datos()
 			session_game.limpiar_rondas()
-			
 			#borrar_ui.emit()
 			ir_a_estado(GameManager.Estado_juego.ESPERANDO)
 			#pasarle por emit el ganador definitivo
 			#End Game
-			pass
+
 
 
 
@@ -148,31 +138,6 @@ func _cuando_tiempo_YA_termine() -> void:
 	ir_a_estado(GameManager.Estado_juego.YA)
 	
 
-#region UI
-
-# ---> Esto podría ir en UI <---
-
-func convertir_enum_en_string(ganador) -> String:
-	match ganador:
-		GameManager.Ganador.jugador:
-			return "jugador"
-		GameManager.Ganador.npc:
-			return "npc"
-	return "ninguna"
-	
-func convertidor_dificultad_string(dificultad_ahora) -> String:
-	match dificultad_ahora:
-		
-		GameManager.Dificultad.facil:
-			return "facil"
-		GameManager.Dificultad.media:
-			return "media"
-		GameManager.Dificultad.alta:
-			return "alta"
-	return "ninguna"
-
-
-#endregion
 
 
 func connectar_señales():
