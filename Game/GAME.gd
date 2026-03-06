@@ -23,7 +23,7 @@ signal borrar_ui
 
 func _ready() -> void:
 	iniciar_configuraciones()
-	tiempo_actual = reglas.tiempo_diferente_por_dificultad(session_game.dificultad_actual)
+	tiempo_actual = reglas.tiempo_diferente_por_dificultad(session_game.dificultad_actual) #BASURA, BORRAR
 	
 	
 func cambiar_estado(nuevo_estado):
@@ -58,11 +58,14 @@ func cambiar_estado(nuevo_estado):
 			if session_game.ganador_definitivo != GameManager.Ganador.ninguno:
 				print("hay una animacion de CARTAS")
 				#poner animacion de CARTAS
-				pass
-				#he
+				
+				
 				
 			elif session_game.ganador_ronda:
-				await sistema_animaciones.play_animacion(session_game.ganador_ronda, sistema_animaciones.animacion_cartas)
+				await play_anim(
+					session_game.ganador_ronda, 
+					sistema_animaciones.animacion_cartas
+					)
 			
 			ir_a_estado(GameManager.Estado_juego.PAUSA)
 			
@@ -81,7 +84,7 @@ func cambiar_estado(nuevo_estado):
 			
 		GameManager.Estado_juego.FINAL:
 			print("PANTALLA FINAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL")
-			session_game.actualizar_dificultad(reglas.siguiente_dificultad(session_game.dificultad_actual, session_game.ganador_definitivo))
+			subir_lvl()
 			
 			print(session_game.dificultad_actual)
 			session_game.limpiar_datos()
@@ -117,6 +120,7 @@ func _cuando_tiempo_npc_termine() -> void:
 	session_game.hacer_ganar_al_npc_si_pierdes(sistema_tiempo.convertir_tiempo_a_segundos())
 	ir_a_estado(GameManager.Estado_juego.RESULTADO)
 	
+	
 func ir_a_estado(estado_nuevo):
 	call_deferred("cambiar_estado", estado_nuevo)
 	
@@ -140,14 +144,16 @@ func establecer_tiempo_NPC():
 										#endregion
 	var segundos: float =  reglas.tiempo_diferente_por_dificultad(session_game.dificultad_actual)
 	return segundos
-	
 	sistema_tiempo.esperar_tiempo_NPC(segundos)
 
 func _cuando_tiempo_YA_termine() -> void:
-	#MUEVE EL TIEMPO A ''YA''
 	ir_a_estado(GameManager.Estado_juego.YA)
 	
-	
+
+#region UI
+
+# ---> Esto podría ir en UI <---
+
 func convertir_enum_en_string(ganador) -> String:
 	match ganador:
 		GameManager.Ganador.jugador:
@@ -167,8 +173,9 @@ func convertidor_dificultad_string(dificultad_ahora) -> String:
 			return "alta"
 	return "ninguna"
 
-func pausar_el_tiempo():
-	await get_tree().create_timer(reglas.pausa_segundos).timeout #ESTO AL GAME SESSION
+
+#endregion
+
 
 func connectar_señales():
 	sistema_tiempo.tiempo_NPC_termino.connect(_cuando_tiempo_npc_termine)
@@ -190,4 +197,18 @@ func hacer_ganar_al_npc_si_pierdes():
 #Al empezar le das al jugador 99999999999 un numero alto, por si tú le das
 #click al comenzar la partida, ademas al npc le das su segundos de reaccion
 									#endregion
-	session_game.hacer_ganar_al_npc_si_pierdes(sistema_tiempo.convertir_tiempo_a_segundos())
+	session_game.hacer_ganar_al_npc_si_pierdes(
+		sistema_tiempo.convertir_tiempo_a_segundos()
+		)
+
+func subir_lvl():
+	session_game.actualizar_dificultad(reglas.subir_dificultad(
+		session_game.dificultad_actual, 
+		session_game.ganador_definitivo
+		))
+	
+func play_anim(ganador: GameManager.Ganador, animacion: PackedScene):
+	sistema_animaciones.play_animacion(ganador, animacion)
+	
+	
+	
