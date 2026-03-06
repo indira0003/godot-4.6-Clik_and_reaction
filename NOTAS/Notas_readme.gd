@@ -8,6 +8,7 @@ Game Session guarda la dificultad actual
 
 
 Bugs:
-	a partir de 3 rondas, ya no se muestra las animaciones y además cada ronda se limpia
-	las rondas
+	NO HAY BUG
+	lo que pasa es que en la tercera ronda se activa otra animacion
+	y esa nueva animacion no la tenemos
 "

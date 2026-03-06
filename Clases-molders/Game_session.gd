@@ -8,6 +8,8 @@ class_name Game_Session
 
 #region VARIABLES
 #-------------------------------------------------------------------------------------------
+var estado_actual: GameManager.Estado_juego = GameManager.Estado_juego.ESPERANDO
+
 var dificultad_actual: GameManager.Dificultad = GameManager.Dificultad.facil
 var ganador_del_juego: GameManager.Ganador = GameManager.Ganador.ninguno # ---> Variable para TERMINAR el juego
 var ganador_definitivo: GameManager.Ganador = GameManager.Ganador.ninguno #---> Aumenta dificultad
@@ -22,6 +24,10 @@ var ronda_npc_score: int = 0
 #endregion
 
 							#FUNCIONES PARA USAR
+
+func si_estado_actual_es_diferent_de_YA_return():
+	if estado_actual != GameManager.Estado_juego.YA:
+		return
 
 func decidir_ganador_definitivo(rondas: int):
 	if ronda_jugador_score >= rondas:
@@ -38,8 +44,8 @@ func sumar_quien_gana_ronda():
 		ganador_ronda = GameManager.Ganador.npc
 		aumentar_score_npc()
 
-func set_dificult(dificultad):
-					#region Nota
+func set_dificult(dificultad: GameManager.Dificultad):
+						#region Nota
 
 #Solo setea la dificultad
 
@@ -59,6 +65,8 @@ func set_dificult(dificultad):
 		npc: #si npc gana: bajar dificultad
 			dificultad_actual = dificultad
 			print("NPC GANA!")
+
+	
 	
 func limpiar_rondas():
 	ronda_jugador_score = 0

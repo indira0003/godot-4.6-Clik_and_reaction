@@ -4,7 +4,7 @@ class_name GAME
 #region VARIABLES
 #-------------------------------------------------------------------------------------------
 #							Estado Actual
-@export var estado_actual: GameManager.Estado_juego = GameManager.Estado_juego.ESPERANDO
+
 
 #							Recursos/objetos/nodos
 @export var sistema_animaciones: System_Animation
@@ -28,11 +28,11 @@ func _ready() -> void:
 	
 func cambiar_estado(nuevo_estado):
 	
-	estado_actual = nuevo_estado
-	estado_cambiado.emit(estado_actual) #Ui sabe el estado del jugego y actualiza
+	session_game.estado_actual = nuevo_estado
+	estado_cambiado.emit(session_game.estado_actual) #Ui sabe el estado del jugego y actualiza
 	tiempo_actual = reglas.tiempo_diferente_por_dificultad(session_game.dificultad_actual) #BORRAR LUEGO
 	
-	match estado_actual:
+	match session_game.estado_actual:
 		
 		GameManager.Estado_juego.ESPERANDO:
 			hacer_ganar_al_npc_si_pierdes()
@@ -85,8 +85,6 @@ func cambiar_estado(nuevo_estado):
 		GameManager.Estado_juego.FINAL:
 			print("PANTALLA FINAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL")
 			subir_lvl()
-			
-			print(session_game.dificultad_actual)
 			session_game.limpiar_datos()
 			session_game.limpiar_rondas()
 			
@@ -101,7 +99,7 @@ func cambiar_estado(nuevo_estado):
 func si_jugador_pulso_boton():
 #-----------------JUGADOR---------------------
 
-	match estado_actual:
+	match session_game.estado_actual:
 		
 		GameManager.Estado_juego.ESPERANDO:
 			ir_a_estado(GameManager.Estado_juego.RESULTADO)
@@ -115,8 +113,8 @@ func si_jugador_pulso_boton():
 	
 func _cuando_tiempo_npc_termine() -> void:
 	#-----------------NPC---------------------
-	if estado_actual != GameManager.Estado_juego.YA:
-		return
+	session_game.si_estado_actual_es_diferent_de_YA_return()
+	
 	session_game.hacer_ganar_al_npc_si_pierdes(sistema_tiempo.convertir_tiempo_a_segundos())
 	ir_a_estado(GameManager.Estado_juego.RESULTADO)
 	
@@ -190,7 +188,7 @@ func iniciar_configuraciones():
 	iniciar_estado()
 
 func hacer_ganar_al_npc_si_pierdes():
-									#region Nota
+							#region Nota
 #reaccion_npc = su timer * 1000 convertir a mili segundos
 #reaccion_jugador = 99999999
 
@@ -202,10 +200,12 @@ func hacer_ganar_al_npc_si_pierdes():
 		)
 
 func subir_lvl():
-	session_game.set_dificult(reglas.subir_dificultad(
+	var new_dificult = reglas.subir_dificultad(
 		session_game.dificultad_actual, 
 		session_game.ganador_definitivo
-		))
+		)
+	
+	session_game.set_dificult(new_dificult)
 	
 func play_anim(ganador: GameManager.Ganador, animacion: PackedScene):
 	await sistema_animaciones.play_animacion(ganador, animacion)
