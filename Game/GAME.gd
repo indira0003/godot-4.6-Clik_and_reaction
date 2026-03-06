@@ -46,8 +46,8 @@ func cambiar_estado(nuevo_estado):
 			
 		GameManager.Estado_juego.RESULTADO:
 			sistema_tiempo.parar_todos_los_timers()
-			session_game.sumar_quien_gana_ronda()
-			session_game.decidir_ganador_definitivo(reglas.rondas_para_Win()) #opcional si ganas
+			session_game.sumar_quien_gana_ronda(reglas.rondas_para_ganar)
+			session_game.decidir_ganador_definitivo(reglas.rondas_para_ganar) #opcional si ganas
 			ir_a_estado(GameManager.Estado_juego.ANIMACION)
 			
 			
@@ -106,7 +106,7 @@ func _cuando_tiempo_npc_termine() -> void:
 	if session_game.estado_actual != GameManager.Estado_juego.YA:
 		return
 	
-	session_game.hacer_ganar_al_npc_si_pierdes(sistema_tiempo.convertir_tiempo_a_segundos())
+	session_game.hacer_ganar_al_npc_si_pierdes(sistema_tiempo.convertir_tiempo_npc_a_ms())
 	ir_a_estado(GameManager.Estado_juego.RESULTADO)
 	
 	

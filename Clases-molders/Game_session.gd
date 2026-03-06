@@ -31,14 +31,14 @@ func decidir_ganador_definitivo(rondas: int):
 	elif ronda_npc_score >= rondas:
 		ganador_definitivo = GameManager.Ganador.npc
 
-func sumar_quien_gana_ronda():
+func sumar_quien_gana_ronda(reglas: int):
 	
 	if reaccion_jugador < reaccion_npc:
 		ganador_ronda = GameManager.Ganador.jugador
-		aumentar_score_jugador()
+		aumentar_score_jugador(reglas)
 	else:
 		ganador_ronda = GameManager.Ganador.npc
-		aumentar_score_npc()
+		aumentar_score_npc(reglas)
 
 func set_dificult(dificultad: GameManager.Dificultad):
 						#region Nota
@@ -69,13 +69,13 @@ func hacer_ganar_al_npc_si_pierdes(segundos: float):
 	reaccion_npc = segundos #convertir el tiempo del npc en miliSegundos
 	reaccion_jugador = 99999999
 	
-func aumentar_score_jugador():
-	if ronda_jugador_score >=3:
+func aumentar_score_jugador(reglas: int):
+	if ronda_jugador_score >=reglas:
 		return
 	ronda_jugador_score += 1
 	
-func aumentar_score_npc():
-	if ronda_npc_score >=3:
+func aumentar_score_npc(reglas: int):
+	if ronda_npc_score >=reglas:
 		return
 	ronda_npc_score += 1
 	

@@ -62,5 +62,3 @@ func mili_Segundos(dificultad: GameManager.Dificultad):
 	var segundos = tiempo_diferente_por_dificultad(dificultad) * 1000 #<--- REGLAS DEL JUEGO 
 	return segundos
 	
-func rondas_para_Win():
-	return rondas_para_ganar
