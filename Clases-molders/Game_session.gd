@@ -25,10 +25,6 @@ var ronda_npc_score: int = 0
 
 							#FUNCIONES PARA USAR
 
-func si_estado_actual_es_diferent_de_YA_return():
-	if estado_actual != GameManager.Estado_juego.YA:
-		return
-
 func decidir_ganador_definitivo(rondas: int):
 	if ronda_jugador_score >= rondas:
 		ganador_definitivo = GameManager.Ganador.jugador

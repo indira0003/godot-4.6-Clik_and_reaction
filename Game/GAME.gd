@@ -103,7 +103,8 @@ func si_jugador_pulso_boton():
 	
 func _cuando_tiempo_npc_termine() -> void:
 	#-----------------NPC---------------------
-	session_game.si_estado_actual_es_diferent_de_YA_return()
+	if session_game.estado_actual != GameManager.Estado_juego.YA:
+		return
 	
 	session_game.hacer_ganar_al_npc_si_pierdes(sistema_tiempo.convertir_tiempo_a_segundos())
 	ir_a_estado(GameManager.Estado_juego.RESULTADO)
