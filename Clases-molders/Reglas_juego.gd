@@ -46,7 +46,7 @@ func clamp_dificultad(valor: int) -> int:
 									#region Nota
 #Sube un nivel en la dificultad cuando ganas las 3 rondas
 									#endregion
-func siguiente_dificultad(dificultad_actual: int, ganador: GameManager.Ganador) -> int:
+func subir_dificultad(dificultad_actual: int, ganador: GameManager.Ganador) -> int:
 	if ganador == GameManager.Ganador.jugador:
 		dificultad_actual += 1
 	elif ganador == GameManager.Ganador.npc:

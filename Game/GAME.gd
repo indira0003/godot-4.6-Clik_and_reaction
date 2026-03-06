@@ -5,7 +5,6 @@ class_name GAME
 #-------------------------------------------------------------------------------------------
 #							Estado Actual
 @export var estado_actual: GameManager.Estado_juego = GameManager.Estado_juego.ESPERANDO
-#@export var dificultad_actual: GameManager.Dificultad = GameManager.Dificultad.facil
 
 #							Recursos/objetos/nodos
 @export var sistema_animaciones: System_Animation
@@ -31,12 +30,12 @@ func cambiar_estado(nuevo_estado):
 	
 	estado_actual = nuevo_estado
 	estado_cambiado.emit(estado_actual) #Ui sabe el estado del jugego y actualiza
-	tiempo_actual = reglas.tiempo_diferente_por_dificultad(session_game.dificultad_actual)
+	tiempo_actual = reglas.tiempo_diferente_por_dificultad(session_game.dificultad_actual) #BORRAR LUEGO
 	
 	match estado_actual:
 		
 		GameManager.Estado_juego.ESPERANDO:
-			session_game.hacer_ganar_al_npc_si_pierdes(sistema_tiempo.convertir_tiempo_a_segundos())
+			hacer_ganar_al_npc_si_pierdes()
 			establecer_tiempo_NPC()
 			sistema_tiempo.iniciar_timer_contador_ya() #contador YA
 			
@@ -123,8 +122,25 @@ func ir_a_estado(estado_nuevo):
 	
 	
 func establecer_tiempo_NPC():
+										#region Nota
+										
+#lo que hace: 
+# --> timer_npc.wait_time = segundos <--
+
+#es decir al timer del npc le va a añadir los SEGUNDOS de la dificultad -- >ACTUAL <--
+
+#Facil:
+#	segundos = 0.5 (revisa si se ha cambiado)
+#Media:
+#	segundos = 0.3 (revisa si se ha cambiado)
+#Alta:
+#	segundos = 0.1 (revisa si se ha cambiado)
+
+
+										#endregion
 	var segundos: float =  reglas.tiempo_diferente_por_dificultad(session_game.dificultad_actual)
 	return segundos
+	
 	sistema_tiempo.esperar_tiempo_NPC(segundos)
 
 func _cuando_tiempo_YA_termine() -> void:
@@ -152,7 +168,7 @@ func convertidor_dificultad_string(dificultad_ahora) -> String:
 	return "ninguna"
 
 func pausar_el_tiempo():
-	await get_tree().create_timer(reglas.pausa_segundos).timeout
+	await get_tree().create_timer(reglas.pausa_segundos).timeout #ESTO AL GAME SESSION
 
 func connectar_señales():
 	sistema_tiempo.tiempo_NPC_termino.connect(_cuando_tiempo_npc_termine)
@@ -165,3 +181,13 @@ func iniciar_configuraciones():
 	connectar_señales()
 	establecer_tiempo_NPC()
 	iniciar_estado()
+
+func hacer_ganar_al_npc_si_pierdes():
+									#region Nota
+#reaccion_npc = su timer * 1000 convertir a mili segundos
+#reaccion_jugador = 99999999
+
+#Al empezar le das al jugador 99999999999 un numero alto, por si tú le das
+#click al comenzar la partida, ademas al npc le das su segundos de reaccion
+									#endregion
+	session_game.hacer_ganar_al_npc_si_pierdes(sistema_tiempo.convertir_tiempo_a_segundos())

@@ -2,8 +2,10 @@ extends Node
 
 
 "
-El juego:
-	actualizar_dificultad es quien aumenta la dificultad
+El juego/proyecto:
+	Funcion ''actualizar_dificultad'': 
+		es quien aumenta la dificultad
+		mueve el juego
 
 
 Bugs:

@@ -6,6 +6,8 @@ datos de la partida que cambian constantemente
 extends Resource
 class_name Game_Session
 
+#region VARIABLES
+#-------------------------------------------------------------------------------------------
 var dificultad_actual: GameManager.Dificultad = GameManager.Dificultad.facil
 var ganador_del_juego: GameManager.Ganador = GameManager.Ganador.ninguno # ---> Variable para TERMINAR el juego
 var ganador_definitivo: GameManager.Ganador = GameManager.Ganador.ninguno #---> Aumenta dificultad
@@ -16,7 +18,11 @@ var reaccion_npc: float
 var inicio_miliSegundos_ya: int #---> Cuanto ha tardado el jugador en hacer Click
 var ronda_jugador_score: int = 0
 var ronda_npc_score: int = 0
-	
+#-------------------------------------------------------------------------------------------
+#endregion
+
+							#FUNCIONES PARA USAR
+
 func decidir_ganador_definitivo(rondas: int):
 	if ronda_jugador_score >= rondas:
 		ganador_definitivo = GameManager.Ganador.jugador
@@ -59,7 +65,6 @@ func limpiar_datos():
 	
 func hacer_ganar_al_npc_si_pierdes(segundos: float):
 	reaccion_npc = segundos #convertir el tiempo del npc en miliSegundos
-	#reaccion_npc = sistema_tiempo.timer_npc.wait_time * 1000 #convertir el tiempo del npc en miliSegundos
 	reaccion_jugador = 99999999
 	
 func aumentar_score_jugador():
@@ -73,12 +78,31 @@ func aumentar_score_npc():
 	ronda_npc_score += 1
 	
 func marcar_inicio_reaccion_jugador():
+				#region Nota
+
+#Guarda el tiempo actual en milisegundos
+#para empezar a contar el tiempo del jugador en el inicio
+
+									#endregion
 	inicio_miliSegundos_ya = Time.get_ticks_msec()
 	
 func calcular_reaccion_jugador():
+				#region Nota
+
+#Calcula el tiempo de reacción del jugador
+#Resta el tiempo actual con el tiempo inicial guardado
+#Así sabremos cuanto tardó el jugador en reaccionar
+
+				#endregion
 	reaccion_jugador = Time.get_ticks_msec() - inicio_miliSegundos_ya
 	
 func calcular_reaccion_npc(segundos: float):
-	#reaccion_npc = sistema_tiempo.timer_npc.wait_time * 1000
+				#region Nota
+
+#a diferencia del jugador: 
+#--> el NPC no se calcula por tiempo <--
+#solo convertimos su timer en mili segundos
+
+				#endregion
 	reaccion_npc = segundos
 	
