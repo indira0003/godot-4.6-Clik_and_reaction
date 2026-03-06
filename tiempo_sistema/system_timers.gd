@@ -35,6 +35,10 @@ func cuando_contador_npc_termine() -> void:
 func esperar_tiempo_NPC(segundos: float):
 	timer_npc.wait_time = segundos
 	
-func convertir_tiempo_npc_a_ms():
+func convertir_tiempo_npc_a_ms() -> float:
 	var tiempo_a_segundos = timer_npc.wait_time * 1000
 	return tiempo_a_segundos
+	
+func esperar_npc_timer():
+	var segundos = convertir_tiempo_npc_a_ms()
+	esperar_tiempo_NPC(segundos)

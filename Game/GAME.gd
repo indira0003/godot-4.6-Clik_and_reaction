@@ -106,7 +106,8 @@ func _cuando_tiempo_npc_termine() -> void:
 	if session_game.estado_actual != GameManager.Estado_juego.YA:
 		return
 	
-	session_game.hacer_ganar_al_npc_si_pierdes(sistema_tiempo.convertir_tiempo_npc_a_ms())
+	sistema_tiempo.convertir_tiempo_npc_a_ms() #<------------ AQUIIIIIIIIIIIIIIIIIIIIIIIIIIII
+	
 	ir_a_estado(GameManager.Estado_juego.RESULTADO)
 	
 	
